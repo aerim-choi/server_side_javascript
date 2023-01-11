@@ -1,5 +1,24 @@
 {
   "dependencies": {
-    "node-mysql": "^0.4.2"
-  }
+    "express": "^4.18.2",
+    "node-mysql": "^0.4.2",
+    "underscore.js": "^1.0.0"
+  },
+  "name": "study",
+  "version": "1.0.0",
+  "description": "Server side javascript tutorials",
+  "main": "database_mysql.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aerim-choi/server_side_javascript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aerim-choi/server_side_javascript/issues"
+  },
+  "homepage": "https://github.com/aerim-choi/server_side_javascript#readme"
 }
