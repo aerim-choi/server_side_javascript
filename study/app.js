@@ -12,6 +12,14 @@ app.get('/template',function(req,res){
 app.get('/route',function(req,res){
     res.send('Hello Router,<img src="/rubberduck.jpeg">')
 })
+app.get('/form',function(req,res){
+    res.render('form');
+})
+app.get('/from_receiver',function(req,res){
+    var title=req.query.title;
+    var description=req.query.description;
+    res.send(title+","+description);
+})
 app.get('/topic/:id',function(req,res){
     var topics=[
         'Javascrpit is....',
