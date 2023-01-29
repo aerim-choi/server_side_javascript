@@ -1,10 +1,13 @@
 var express = require('express');
+var bodyParser=require('body-parser');
+
 var app = express();
 app.locals.pretty=true;
  // 템플릿 엔진과 express를 연결
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended:false}));
 
 app.get('/template',function(req,res){ 
     res.render('temp',{time:Date(),_title:'Jade'});      //템플릿엔진의 코드에 따라서 만들어진 템플릿파일을 읽어오는 메소드render()
@@ -15,9 +18,15 @@ app.get('/route',function(req,res){
 app.get('/form',function(req,res){
     res.render('form');
 })
-app.get('/from_receiver',function(req,res){
+app.get('/form_receiver',function(req,res){
     var title=req.query.title;
     var description=req.query.description;
+    res.send(title+","+description);
+})
+
+app.post('/form_receiver',function(req,res){
+    var title =req.body.title;
+    var description=req.body.description;
     res.send(title+","+description);
 })
 app.get('/topic/:id',function(req,res){
