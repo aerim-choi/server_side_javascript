@@ -8,33 +8,47 @@ app.set('views','./views_file');
 app.set('view engine','jade');
 
 app.get('/topic/new',function(req,res){
-    res.render("new");
-})
-
-app.get('/topic',function(req,res){
     fs.readdir('data',function(err,files){
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        res.render('view',{topics:files})
+        res.render('new',{topics:files})
     })
 })
 
-app.get('/topic/:id',function(req,res){
-    var id = req.params.id;
+// app.get('/topic',function(req,res){
+//     fs.readdir('data',function(err,files){
+//         if(err){
+//             console.log(err);
+//             res.status(500).send('Internal Server Error');
+//         }
+//         res.render('view',{topics:files})
+//     })
+// })
+
+app.get(['/topic','/topic/:id'],function(req,res){
+    
     fs.readdir('data',function(err,files){
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        fs.readFile('data/'+id,'utf-8',function(err,data){
-            if(err){
-                console.log(err);
-                res.status(500).send('Internal Server Error');
-            }
-            res.render('view',{topics:files,title:id,description:data})
-        })
+        var id = req.params.id;
+        if(id){
+            //id 값이 있을 때
+            fs.readFile('data/'+id,'utf-8',function(err,data){
+                if(err){
+                    console.log(err);
+                    res.status(500).send('Internal Server Error');
+                }
+                res.render('view',{topics:files,title:id,description:data})
+            })
+        }
+        else{
+            res.render('view',{topics:files,title:'Welcome',description:'Hello, JavaScript for server.'})
+        }
+       
     })
 })
 
@@ -46,7 +60,7 @@ app.post('/topic',function(req,res){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        res.send('Success!'); 
+        res.redirect('/topic/'+title); //사용자에게 보내고 싶은 페이지
     });
    
 })
